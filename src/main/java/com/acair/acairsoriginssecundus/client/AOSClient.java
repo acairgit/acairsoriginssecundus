@@ -4,6 +4,8 @@ import com.acair.acairsoriginssecundus.AcairsOriginsSecundus;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.gui.screens.Screen;
+import com.acair.acairsoriginssecundus.client.CharacterEditorScreen;
+import com.acair.acairsoriginssecundus.client.SelectRaceScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.event.TickEvent;
@@ -20,15 +22,21 @@ import org.lwjgl.glfw.GLFW;
 @Mod.EventBusSubscriber(modid = AcairsOriginsSecundus.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class AOSClient {
 
+    // Лениво создаем KeyMapping. Клавиши по умолчанию - O и P.
     // Лениво создаем KeyMapping. Клавиша по умолчанию - O.
     public static final Lazy<KeyMapping> OPEN_EDITOR_KEY = Lazy.of(() ->
             new KeyMapping("key.acairsoriginssecundus.open_editor", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O,
+                    "key.categories.acairsoriginssecundus"));
+
+    public static final Lazy<KeyMapping> OPEN_SELECT_KEY = Lazy.of(() ->
+            new KeyMapping("key.acairsoriginssecundus.open_select", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_P,
                     "key.categories.acairsoriginssecundus"));
 
     // Регистрируем клавишу через событие RegisterKeyMappingsEvent
     @SubscribeEvent
     public static void registerBindings(RegisterKeyMappingsEvent event) {
         event.register(OPEN_EDITOR_KEY.get());
+        event.register(OPEN_SELECT_KEY.get());
     }
 
     // Отслеживаем нажатие клавиши каждый тик клиента
@@ -40,6 +48,12 @@ public class AOSClient {
                 Screen current = mc.screen;
                 if (current == null) {
                     mc.setScreen(new CharacterEditorScreen());
+                }
+            }
+            while (OPEN_SELECT_KEY.get().consumeClick()) {
+                Minecraft mc = Minecraft.getInstance();
+                if (mc.screen == null) {
+                    mc.setScreen(new SelectRaceScreen());
                 }
             }
         }
