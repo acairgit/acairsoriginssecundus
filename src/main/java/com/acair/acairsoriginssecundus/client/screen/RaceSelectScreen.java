@@ -12,6 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Экран выбора расы. Слева расположен список всех рас,
+ * позволяющий быстро пролистывать варианты. В центре
+ * отображается модель игрока, а справа блок с названием
+ * и описанием выбранной расы.
+ */
+public class RaceSelectScreen extends Screen {
+    private final List<Race> races = Arrays.asList(Race.values());
+    private RaceList raceList;
  * Экран выбора расы. Слева отображается модель игрока,
  * справа описание выбранной расы. Стрелками можно
  * переключать расы, а кнопка "Готово" подтверждает выбор
@@ -30,6 +38,19 @@ public class RaceSelectScreen extends Screen {
 
     @Override
     protected void init() {
+        int listWidth = 80;
+        // Создаём полоску прокрутки со списком рас
+        this.raceList = new RaceList(this.minecraft, 20, 20, listWidth, this.height - 40, races);
+        this.addRenderableWidget(this.raceList);
+
+        // Кнопка подтверждения выбора находится снизу по центру
+        this.done = this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), b -> confirm())
+                .bounds(this.width / 2 - 50, this.height - 30, 100, 20).build());
+    }
+
+    private void confirm() {
+        // Переходим к экрану редактора с выбранной расой
+        this.minecraft.setScreen(new CharacterEditorScreen(this.raceList.getSelectedRace()));
         int centerX = this.width / 2;
         int centerY = this.height / 2;
         // Кнопки для переключения рас
@@ -52,6 +73,22 @@ public class RaceSelectScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
+        // Фон как при загрузке мира
+        this.renderDirtBackground(graphics);
+
+        Race current = this.raceList.getSelectedRace();
+        int modelX = this.width / 2 - 30; // модель ближе к центру
+        int modelY = this.height / 2 + 40;
+
+        // Немного увеличиваем размер модели
+        InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, modelX, modelY, 50,
+                modelX - mouseX, modelY - 50 - mouseY, Minecraft.getInstance().player);
+
+        // Блок с описанием справа
+        int infoLeft = this.width / 2 + 40;
+        graphics.drawString(this.font, current.getName(), infoLeft, 40, 0xFFFFFF, false);
+        graphics.drawWordWrap(this.font, current.getDescription(), infoLeft, 60, 120, 0xFFFFFF);
+
         this.renderBackground(graphics);
         int centerX = this.width / 2;
         int centerY = this.height / 2;
