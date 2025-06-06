@@ -7,6 +7,9 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraftforge.client.gui.widget.ScrollPanel;
 import com.mojang.blaze3d.vertex.Tesselator;
 import net.minecraft.network.chat.Component;
+import net.minecraft.client.gui.narration.NarratableEntry;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.narration.NarratableEntry.NarrationPriority;
 
 import java.util.List;
 
@@ -68,5 +71,15 @@ public class RaceList extends ScrollPanel {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public NarrationPriority narrationPriority() {
+        return NarrationPriority.NONE;
+    }
+
+    @Override
+    public void updateNarration(NarrationElementOutput output) {
+        // Для простого списка озвучивание не требуется
     }
 }

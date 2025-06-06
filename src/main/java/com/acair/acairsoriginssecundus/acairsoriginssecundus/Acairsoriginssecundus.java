@@ -15,6 +15,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import com.acair.acairsoriginssecundus.client.KeyBindings;
+import com.acair.acairsoriginssecundus.client.KeyInputHandler;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -75,7 +76,7 @@ public class Acairsoriginssecundus {
         MinecraftForge.EVENT_BUS.register(this);
         // Подписываем обработчики горячих клавиш на нужные шины событий
         modEventBus.addListener(KeyBindings::register); // регистрация клавиш
-        MinecraftForge.EVENT_BUS.addListener(KeyBindings::onClientTick); // проверка нажатий
+        MinecraftForge.EVENT_BUS.addListener(KeyInputHandler::onClientTick); // проверка нажатий
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
