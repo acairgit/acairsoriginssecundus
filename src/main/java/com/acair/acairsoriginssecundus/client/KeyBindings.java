@@ -1,0 +1,38 @@
+package com.acair.acairsoriginssecundus.client;
+
+import com.acair.acairsoriginssecundus.acairsoriginssecundus.Acairsoriginssecundus;
+import net.minecraft.client.KeyMapping;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
+
+/**
+ * Класс для регистрации и обработки горячих клавиш клиента.
+ * Используем один биндинг для открытия экрана выбора расы.
+ *
+ * <p>Аннотация ниже указывает, что обработчики этого класса
+ * слушают события на основной шине Forge только на клиенте.
+ * Событие регистрации клавиш {@link RegisterKeyMappingsEvent}
+ * отправляется на мод-шину, поэтому соответствующий метод
+ * подключается к ней в конструкторе мода.</p>
+ */
+// Класс подписывается на мод-шину, так как регистрация клавиш происходит
+// во время инициализации клиента.
+@Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class KeyBindings {
+    // Горячая клавиша лениво инициализируется при регистрации
+    public static final Lazy<KeyMapping> OPEN_EDITOR = Lazy.of(() -> new KeyMapping(
+            "key.acairsoriginssecundus.open_editor",
+            GLFW.GLFW_KEY_O,
+            "key.categories.acairsoriginssecundus"
+    ));
+
+    @SubscribeEvent
+    public static void register(RegisterKeyMappingsEvent event) {
+        event.register(OPEN_EDITOR.get());
+    }
+
+}
