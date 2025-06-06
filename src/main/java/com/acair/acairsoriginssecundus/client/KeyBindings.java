@@ -1,5 +1,18 @@
 package com.acair.acairsoriginssecundus.client;
 
+import com.acair.acairsoriginssecundus.acairsoriginssecundus.Acairsoriginssecundus;
+import net.minecraft.client.KeyMapping;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.common.util.Lazy;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
+
+/**
+ * Класс для регистрации и обработки горячих клавиш клиента.
+ * Используем один биндинг для открытия экрана выбора расы.
+ *
 import com.acair.acairsoriginssecundus.client.screen.RaceSelectScreen;
 import com.acair.acairsoriginssecundus.acairsoriginssecundus.Acairsoriginssecundus;
 import net.minecraft.client.Minecraft;
@@ -22,6 +35,9 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
  * отправляется на мод-шину, поэтому соответствующий метод
  * подключается к ней в конструкторе мода.</p>
  */
+// Класс подписывается на мод-шину, так как регистрация клавиш происходит
+// во время инициализации клиента.
+@Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 // Мы регистрируем обработчики событий вручную в конструкторе мода,
 // поэтому аннотация EventBusSubscriber здесь не требуется.
 @Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID,

@@ -20,11 +20,6 @@ import java.util.List;
 public class RaceSelectScreen extends Screen {
     private final List<Race> races = Arrays.asList(Race.values());
     private RaceList raceList;
- * Экран выбора расы. Слева отображается модель игрока,
- * справа описание выбранной расы. Стрелками можно
- * переключать расы, а кнопка "Готово" подтверждает выбор
- * и открывает экран редактора персонажа.
- */
 public class RaceSelectScreen extends Screen {
     private final List<Race> races = Arrays.asList(Race.values());
     private int index = 0;
