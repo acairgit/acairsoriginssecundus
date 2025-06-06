@@ -2,8 +2,10 @@
   "race.acairsoriginssecundus.human": "Human",
   "race.acairsoriginssecundus.human.desc": "Ordinary human being.",
   "race.acairsoriginssecundus.elf": "Elf",
+
   "race.acairsoriginssecundus.elf.desc": "Graceful forest dweller.",
   "screen.acairsoriginssecundus.select_race": "Select Race",
+
   "screen.acairsoriginssecundus.editor": "Character Editor",
   "option.acairsoriginssecundus.height": "Height: %s",
   "option.acairsoriginssecundus.eye_color": "Eye Color",
