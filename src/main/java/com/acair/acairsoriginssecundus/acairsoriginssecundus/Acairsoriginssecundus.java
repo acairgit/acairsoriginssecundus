@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import com.acair.acairsoriginssecundus.client.KeyBindings;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -72,6 +73,9 @@ public class Acairsoriginssecundus {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        // Подписываем обработчики горячих клавиш на нужные шины событий
+        modEventBus.addListener(KeyBindings::register); // регистрация клавиш
+        MinecraftForge.EVENT_BUS.addListener(KeyBindings::onClientTick); // проверка нажатий
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
