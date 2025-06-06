@@ -16,5 +16,6 @@
   "ear_type.acairsoriginssecundus.human": "Human",
   "ear_type.acairsoriginssecundus.pointed": "Pointed",
   "key.categories.acairsoriginssecundus": "Acair Origins",
-  "key.acairsoriginssecundus.open_editor": "Open Character Editor"
+  "key.acairsoriginssecundus.open_editor": "Open Character Editor",
+  "key.acairsoriginssecundus.open_select": "Open Race Selection"
 }
