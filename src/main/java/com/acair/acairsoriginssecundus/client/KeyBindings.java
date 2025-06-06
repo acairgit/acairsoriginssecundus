@@ -22,9 +22,8 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
  * отправляется на мод-шину, поэтому соответствующий метод
  * подключается к ней в конструкторе мода.</p>
  */
-@Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID,
-        bus = Mod.EventBusSubscriber.Bus.FORGE,
-        value = Dist.CLIENT)
+// Мы регистрируем обработчики событий вручную в конструкторе мода,
+// поэтому аннотация EventBusSubscriber здесь не требуется.
  */
 @Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID, value = Dist.CLIENT)
 public class KeyBindings {
