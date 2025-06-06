@@ -16,7 +16,6 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 /**
  * Класс для регистрации и обработки горячих клавиш клиента.
  * Используем один биндинг для открытия экрана выбора расы.
- *
  * <p>Аннотация ниже указывает, что обработчики этого класса
  * слушают события на основной шине Forge только на клиенте.
  * Событие регистрации клавиш {@link RegisterKeyMappingsEvent}
@@ -26,6 +25,8 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 @Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID,
         bus = Mod.EventBusSubscriber.Bus.FORGE,
         value = Dist.CLIENT)
+ */
+@Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID, value = Dist.CLIENT)
 public class KeyBindings {
     // Горячая клавиша лениво инициализируется при регистрации
     public static final Lazy<KeyMapping> OPEN_EDITOR = Lazy.of(() -> new KeyMapping(

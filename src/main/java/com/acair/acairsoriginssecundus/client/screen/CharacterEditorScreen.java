@@ -71,6 +71,11 @@ public class CharacterEditorScreen extends Screen {
         this.done = this.addRenderableWidget(Button.builder(Component.translatable("gui.done"),
                 b -> this.minecraft.setScreen(null))
                 .bounds(centerX + 20, centerY + 70, 80, 20).build());
+        // Кнопки навигации
+        this.back = this.addRenderableWidget(Button.builder(Component.translatable("gui.back"), b -> this.minecraft.setScreen(new RaceSelectScreen()))
+                .bounds(centerX - 100, centerY + 40, 80, 20).build());
+        this.done = this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), b -> this.minecraft.setScreen(null))
+                .bounds(centerX + 20, centerY + 40, 80, 20).build());
     }
 
     @Override
