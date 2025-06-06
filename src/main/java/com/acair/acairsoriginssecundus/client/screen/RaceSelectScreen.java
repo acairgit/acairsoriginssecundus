@@ -20,6 +20,11 @@ import java.util.List;
 public class RaceSelectScreen extends Screen {
     private final List<Race> races = Arrays.asList(Race.values());
     private RaceList raceList;
+public class RaceSelectScreen extends Screen {
+    private final List<Race> races = Arrays.asList(Race.values());
+    private int index = 0;
+    private Button left;
+    private Button right;
     private Button done;
 
     public RaceSelectScreen() {
@@ -41,6 +46,24 @@ public class RaceSelectScreen extends Screen {
     private void confirm() {
         // Переходим к экрану редактора с выбранной расой
         this.minecraft.setScreen(new CharacterEditorScreen(this.raceList.getSelectedRace()));
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+        // Кнопки для переключения рас
+        this.left = this.addRenderableWidget(Button.builder(Component.literal("<"), b -> this.cycle(-1))
+                .bounds(centerX - 70, centerY - 20, 20, 20).build());
+        this.right = this.addRenderableWidget(Button.builder(Component.literal(">"), b -> this.cycle(1))
+                .bounds(centerX + 50, centerY - 20, 20, 20).build());
+        // Кнопка подтверждения выбора
+        this.done = this.addRenderableWidget(Button.builder(Component.translatable("gui.done"), b -> this.confirm())
+                .bounds(centerX - 50, centerY + 40, 100, 20).build());
+    }
+
+    private void cycle(int dir) {
+        this.index = (this.index + dir + this.races.size()) % this.races.size();
+    }
+
+    private void confirm() {
+        this.minecraft.setScreen(new CharacterEditorScreen(this.races.get(this.index)));
     }
 
     @Override
@@ -61,6 +84,16 @@ public class RaceSelectScreen extends Screen {
         graphics.drawString(this.font, current.getName(), infoLeft, 40, 0xFFFFFF, false);
         graphics.drawWordWrap(this.font, current.getDescription(), infoLeft, 60, 120, 0xFFFFFF);
 
+        this.renderBackground(graphics);
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+        Race current = this.races.get(this.index);
+        // Отрисовка модели игрока слева
+        InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, centerX - 90, centerY + 30, 30,
+                (float)(centerX - 90) - mouseX, (float)(centerY + 30 - 60) - mouseY, Minecraft.getInstance().player);
+        // Отрисовка названия и описания расы справа
+        graphics.drawCenteredString(this.font, current.getName(), centerX, centerY - 60, 0xFFFFFF);
+        graphics.drawWordWrap(this.font, current.getDescription(), centerX + 40, centerY - 20, 120, 0xFFFFFF);
         super.render(graphics, mouseX, mouseY, partialTick);
     }
 }
