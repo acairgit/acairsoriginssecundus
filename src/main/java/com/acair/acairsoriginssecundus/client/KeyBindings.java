@@ -8,6 +8,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.lwjgl.glfw.GLFW;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
@@ -15,6 +16,15 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 /**
  * Класс для регистрации и обработки горячих клавиш клиента.
  * Используем один биндинг для открытия экрана выбора расы.
+ * <p>Аннотация ниже указывает, что обработчики этого класса
+ * слушают события на основной шине Forge только на клиенте.
+ * Событие регистрации клавиш {@link RegisterKeyMappingsEvent}
+ * отправляется на мод-шину, поэтому соответствующий метод
+ * подключается к ней в конструкторе мода.</p>
+ */
+@Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID,
+        bus = Mod.EventBusSubscriber.Bus.FORGE,
+        value = Dist.CLIENT)
  */
 @Mod.EventBusSubscriber(modid = Acairsoriginssecundus.MODID, value = Dist.CLIENT)
 public class KeyBindings {

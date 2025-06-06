@@ -1,10 +1,13 @@
 package com.acair.acairsoriginssecundus.client.screen;
 
 import com.acair.acairsoriginssecundus.character.Race;
+import com.acair.acairsoriginssecundus.character.EyeColor;
+import com.acair.acairsoriginssecundus.character.EarType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.AbstractSliderButton;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -15,6 +18,10 @@ import net.minecraft.network.chat.Component;
 public class CharacterEditorScreen extends Screen {
     private final Race race;
     private AbstractSliderButton heightSlider;
+    // Кнопка для выбора цвета глаз
+    private CycleButton<EyeColor> eyeColor;
+    // Кнопка для выбора типа ушей, только для некоторых рас
+    private CycleButton<EarType> earType;
     private Button back;
     private Button done;
 
@@ -41,6 +48,29 @@ public class CharacterEditorScreen extends Screen {
         };
         this.addRenderableWidget(this.heightSlider);
 
+        // Переключатель цвета глаз
+        this.eyeColor = this.addRenderableWidget(
+                CycleButton.builder(EyeColor::getName)
+                        .withValues(EyeColor.values())
+                        .create(centerX - 100, centerY + 10, 200, 20,
+                                Component.translatable("option.acairsoriginssecundus.eye_color")));
+
+        // Если раса поддерживает выбор типа ушей, добавляем соответствующий переключатель
+        if (this.race == Race.ELF) {
+            this.earType = this.addRenderableWidget(
+                    CycleButton.builder(EarType::getName)
+                            .withValues(EarType.values())
+                            .create(centerX - 100, centerY + 40, 200, 20,
+                                    Component.translatable("option.acairsoriginssecundus.ear_type")));
+        }
+
+        // Кнопки навигации
+        this.back = this.addRenderableWidget(Button.builder(Component.translatable("gui.back"),
+                b -> this.minecraft.setScreen(new RaceSelectScreen()))
+                .bounds(centerX - 100, centerY + 70, 80, 20).build());
+        this.done = this.addRenderableWidget(Button.builder(Component.translatable("gui.done"),
+                b -> this.minecraft.setScreen(null))
+                .bounds(centerX + 20, centerY + 70, 80, 20).build());
         // Кнопки навигации
         this.back = this.addRenderableWidget(Button.builder(Component.translatable("gui.back"), b -> this.minecraft.setScreen(new RaceSelectScreen()))
                 .bounds(centerX - 100, centerY + 40, 80, 20).build());
