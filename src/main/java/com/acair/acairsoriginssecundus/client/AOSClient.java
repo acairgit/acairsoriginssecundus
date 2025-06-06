@@ -23,6 +23,7 @@ import org.lwjgl.glfw.GLFW;
 public class AOSClient {
 
     // Лениво создаем KeyMapping. Клавиши по умолчанию - O и P.
+    // Лениво создаем KeyMapping. Клавиша по умолчанию - O.
     public static final Lazy<KeyMapping> OPEN_EDITOR_KEY = Lazy.of(() ->
             new KeyMapping("key.acairsoriginssecundus.open_editor", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O,
                     "key.categories.acairsoriginssecundus"));
